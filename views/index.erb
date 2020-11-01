@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--<link rel=styleSheet href="css/styles.css" type="text/css">-->
+		<title>
+				Planificacion apuntes asignaturas Master
+			</title>
+	</head>
+	<body>
+		<header>
+			<h1 class="titulo">
+				Planificacion apuntes asignaturas Master
+			</h1>
+		</header>
+			<% if(@botonBusca==1 && @botonAll==0)%>
+				<form class="" action="/activaBusca" method="post">
+					<input type="submit" name="busqueda" value="busqueda">
+				</form>
+			<%end%>
+
+			<% if(@botonInserta==1 && @botonAll==0) %>
+				<form class="" action="/activaInserta" method="post">
+					<input type="submit" name="inserta" value="inserta">
+				</form>
+			<%end%>
+
+			<% if @botonAll==1 %>
+				<form class="" action="/activaAll" method="post">
+					<input type="submit" name="all" value="all links">
+				</form>
+			<%end%>
+
+			<% if @botonAgenda==1 %>
+				<form class="" action="/activaAgenda" method="post">
+					<input type="submit" name="agenda" value="agenda">
+				</form>
+			<%end%>
+
+			<% if @agenda==1 %>
+				<form class="" action="/activaInsertarAgenda" method="post">
+					<input type="submit" name="insertar" value="add agenda">
+				</form>
+			<%end%>
+
+			<% if @busca==1%>
+				<form class="" action="/search" method="post">
+					<p>Asignatura: </p>
+					<input type="text" name="asig" id="asignatura" value="<%= @asig %>"><br>
+					<p>Apunte: </p>
+					<input type="text" name="apunte" id="apunte" value="<%= @apunte %>"><br>
+					<input type="submit" name="submit" value="submit">
+					<button type="submit" formaction="/hideBusca">hide</button>
+				</form>
+			<%end%>
+
+			<% if @inserta==1 %>
+				<form class="inserta" action="/inserta" method="post">
+					<p>Asignatura: </p>
+					<input type="text" name="asig" value="<%= @asig %>"><br>
+					<p>Apunte: </p>
+					<input type="text" name="apunte" value="<%= @apunte %>"><br>
+					<p>Enlace: </p>
+					<input type="text" name="enlace" value="<%= @enlace %>"><br>
+					<input type="submit" name="submit" value="submit">
+					<button type="submit" formaction="/hideInserta">hide</button>
+				</form>
+			<%end%>
+
+			<% if @insertAgenda==1%>
+				<form class="" action="/insertarAgenda" method="post">
+					<p>Nota: </p>
+					<input type="text" name="nota" id="nota" value="<%= @nota %>"><br>
+					<input type="submit" name="submit" value="submit">
+					<button type="submit" formaction="/hideInsertAgenda">hide</button>
+				</form>
+			<%end%>
+
+
+      <% if @agenda==1
+					fecha1=Time.now.strftime("%d/%m/%Y")
+					fecha=fecha1.split('/')%>
+					<p><%=fecha1%>:</p>
+					<%
+					@listaAgenda["#{fecha[2]}"]["#{fecha[1]}"]["#{fecha[0]}"].map do |value| %>
+        		<p><%=value%></p>
+      <% 	end
+				end %>
+
+				<% if @all==1
+						@links.map do |key,value| %>
+	        		<a href=<%=value%> target="_blank"><%=key%></a></br>
+	      <% 	end
+					end %>
+
+			<% if @botonAll==0 %>
+					<form class="" action="/hidelinks" method="post">
+						<input type="submit" name="hidelinks" value="hide links">
+					</form>
+			<%end%>
+
+			<% if @botonAgenda==0 %>
+				<form class="" action="/hideAgenda" method="post">
+					<input type="submit" name="agenda" value="hide agenda">
+				</form>
+			<%end%>
+
+
+		<footer>
+
+		</footer>
+	</body>
+</html>
