@@ -1,8 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    bson (4.11.1)
     io-console (0.5.6)
     json (2.3.1)
+    mongo (2.13.0)
+      bson (>= 4.8.2, < 5.0.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     rack (2.2.3)
@@ -23,6 +26,7 @@ PLATFORMS
 DEPENDENCIES
   io-console
   json
+  mongo (= 2.13.0)
   sinatra
   yard
 

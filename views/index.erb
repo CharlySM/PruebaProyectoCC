@@ -42,6 +42,18 @@
 				</form>
 			<%end%>
 
+			<% if @agenda==1 %>
+				<form class="" action="/activaInsertarAgenda2" method="post">
+					<input type="submit" name="insertar" value="add agenda con fecha">
+				</form>
+			<%end%>
+
+			<% if @agenda==1 %>
+				<form class="" action="/activaBuscaAgenda" method="post">
+					<input type="submit" name="buscaAgenda" value="buscaAgenda">
+				</form>
+			<%end%>
+
 			<% if @busca==1%>
 				<form class="" action="/search" method="post">
 					<p>Asignatura: </p>
@@ -75,21 +87,47 @@
 				</form>
 			<%end%>
 
+			<% if @insertAgenda2==1%>
+				<form class="" action="/insertarAgenda" method="post">
+					<p>Nota: </p>
+					<input type="text" name="nota" id="nota" value="<%= @nota %>"><br>
+					<p>Fecha: </p>
+					<input type="text" name="fecha" id="fecha" value="<%= @fecha %>">dd/mm/yyyy<br>
+					<input type="submit" name="submit" value="submit">
+					<button type="submit" formaction="/hideInsertAgenda2">hide</button>
+				</form>
+			<%end%>
 
-      <% if @agenda==1
-					fecha1=Time.now.strftime("%d/%m/%Y")
-					fecha=fecha1.split('/')%>
-					<p><%=fecha1%>:</p>
-					<%
-					@listaAgenda["#{fecha[2]}"]["#{fecha[1]}"]["#{fecha[0]}"].map do |value| %>
-        		<p><%=value%></p>
-      <% 	end
-				end %>
+			<% if @buscaAgenda==1%>
+				<form class="" action="/buscaAgenda" method="post">
+					<p>year: </p>
+					<input type="text" name="year" id="year" value="<%= @year %>"><br>
+					<p>mes: </p>
+					<input type="text" name="mes" id="mes" value="<%= @mes %>"><br>
+					<p>dia: </p>
+					<input type="text" name="dia" id="dia" value="<%= @dia %>"><br>
+					<input type="submit" name="submit" value="submit">
+					<button type="submit" formaction="/hideBuscaAgenda">hide</button>
+				</form>
+			<%end%>
 
+
+      <% if @agenda==1%>
+
+					<%@listaAgenda.map do |k,v|%>
+								<p><%="#{k}"%></p>
+								<%v.map do |value|%>
+			            <p><%=value%></p>
+			       <% end
+						 end
+					 end%>
 				<% if @all==1
-						@links.map do |key,value| %>
+						print @links.to_json
+						@links.each do |i|  i.map do |key,value| if(key!="_id")%>
 	        		<a href=<%=value%> target="_blank"><%=key%></a></br>
-	      <% 	end
+	      <%		end
+						end
+					end
 					end %>
 
 			<% if @botonAll==0 %>
